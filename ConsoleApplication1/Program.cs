@@ -10,12 +10,30 @@ namespace ConsoleApplication1
 {
     class Program
     {
+        private static void ValidateNewValue(Int32 value, Int32 low, Int32 top)
+        {
+            if (value <= low || value >= top)
+            {
+                throw new OverflowException(string.Format("Value in range [{0}-{1}] expected", low, top));
+            }
+        }
+
         static void Main(string[] args)
         {
+
             int wordCount = Convert.ToInt32(Console.ReadLine());
+            try
+            {
+                ValidateNewValue(wordCount, 1, 5);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
             SortedDictionary<string, int> words = new SortedDictionary<string, int>();
 
-            for (int i = 0; i < wordCount; i++)
+            for (int i = 0; i < (int)wordCount; i++)
             {
                 string[] ReadValue = Regex.Split(Console.ReadLine(), " ");
                 words.Add(ReadValue[0], Convert.ToInt32(ReadValue[1]));
@@ -36,19 +54,18 @@ namespace ConsoleApplication1
 
 
 
-
-            //string[] ReadValue = Regex.Split(Console.ReadLine(), " ");
             foreach (var kvp in items)
-             {
-                Console.WriteLine(kvp.Key + ": " + kvp.Value.ToString() );
-             }
-        
-            
-            
-            
+            {
+                Console.WriteLine(kvp.Key + ": " + kvp.Value.ToString());
+            }
 
-             //Thread.Sleep(0);
-             Console.Read(); 
+
+
+
+
+            //Thread.Sleep(0);
+            Console.Read();
         }
+
     }
 }
